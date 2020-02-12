@@ -1,0 +1,55 @@
+<resources>
+    <string name="app_name">Coursework_App</string>
+
+    <string name="log_in">Log In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="back">Back</string>
+
+    <string name="name">Name : </string>
+    <string name="surname">Surname : </string>
+    <string name="pseudo">Pseudo : </string>
+    <string name="email">Email : </string>
+    <string name="password">Password : </string>
+
+    <string name="welcome">Perfect ! You are now register on our app</string>
+    <string name="wrongPassword">You have not entered a good password (8 characters,lower and Upper case, number)</string>
+    <string name="wrongEmail">You have not entered a good email</string>
+    <string name="bothWrong">You have not entered a good email and password (8 characters,lower and Upper case, number)</string>
+    <string name="notInfo">You need to fill in all the fields</string>
+
+    <string name="welcomeMessage">So nice to see you again !!</string>
+
+    <string name="activities">Activities</string>
+    <string name="contact">Contacts</string>
+
+    <string name="createTitle"><u>Create your new activity</u></string>
+    <string name="drink">Choose your Drinks</string>
+    <string name="food">Choose your Foods</string>
+
+    <string name="validateBtn">Validate</string>
+    <string name="coca">Coca</string>
+    <string name="icetea">Ice Tea</string>
+    <string name="sprite">Sprite</string>
+    <string name="beer">Beer</string>
+    <string name="nameDrink">Name</string>
+    <string name="choose">Choose</string>
+    <string name="quantity">Quantity</string>
+    <string-array name="quantityNumbers">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+    </string-array>
+
+
+    <string name="setting">Setting</string>
+    <string name="logout">Logout</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
