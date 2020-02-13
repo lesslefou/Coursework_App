@@ -23,10 +23,10 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.ViewHolder> 
     private static final String TAG = "DrinkAdapter";
 
     private ArrayList<String> mImageNames = new ArrayList<>();
-    private ArrayList<Object> mImages = new ArrayList<>();
+    private ArrayList<Integer> mImages = new ArrayList<>();
     private Context mContext;
 
-    public DrinkAdapter(ArrayList<String> mImageNames, ArrayList<Object> mImages, Context mContext) {
+    public DrinkAdapter(ArrayList<String> mImageNames, ArrayList<Integer> mImages, Context mContext) {
         this.mImageNames = mImageNames;
         this.mImages = mImages;
         this.mContext = mContext;
@@ -52,7 +52,7 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         Log.d(TAG,"onBindViewHolder: called");
 
-        holder.image.setImageDrawable(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.coca_logo, null));
+        holder.image.setImageDrawable(ResourcesCompat.getDrawable(mContext.getResources(), mImages.get(position), null));
         holder.imageName.setText(mImageNames.get(position));
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override

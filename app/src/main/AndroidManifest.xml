@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="lisa.duterte.coursework_app">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,13 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DrinkAdapter"></activity>
+        <activity android:name=".Welcome"></activity>
+        <activity android:name=".DrinkAdapter" />
         <activity android:name=".DrinkChoice" />
-        <activity android:name=".RecyclerViewAdapter" />
         <activity android:name=".Create_Activity" />
         <activity android:name=".ViewPagerAdapter" />
         <activity android:name=".Log_In" />
-        <activity android:name=".Welcome" />
         <activity android:name=".Sign_Up" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -26,5 +27,4 @@
         </activity>
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>
