@@ -20,6 +20,7 @@
 
     <Button
         android:id="@+id/activityBtn"
+        style="?android:attr/spinnerStyle"
         android:layout_width="125dp"
         android:layout_height="60dp"
         android:layout_marginStart="80dp"
@@ -32,6 +33,7 @@
 
     <Button
         android:id="@+id/contactBtn"
+        style="?android:attr/spinnerStyle"
         android:layout_width="125dp"
         android:layout_height="60dp"
         android:onClick="onSelectFragment"

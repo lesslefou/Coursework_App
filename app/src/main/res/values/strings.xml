@@ -22,6 +22,9 @@
     <string name="activities">Activities</string>
     <string name="contact">Contacts</string>
 
+    <string name="myActivities"><u>My Activities</u></string>
+    <string name="createAct">Create a new Activity</string>
+
     <string name="createTitle"><u>Create your new activity</u></string>
     <string name="drink">Choose your Drinks</string>
     <string name="food">Choose your Foods</string>
@@ -35,6 +38,7 @@
     <string name="choose">Choose</string>
     <string name="quantity">Quantity</string>
     <string-array name="quantityNumbers">
+        <item>0</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
