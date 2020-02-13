@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class DrinkChoice extends AppCompatActivity {
 
     private ArrayList<String> mImageNames = new ArrayList<>();
-    private ArrayList<Drawable> mImages = new ArrayList<>();
+    private ArrayList<Object> mImages = new ArrayList<>();
 
 
     @Override
@@ -36,14 +36,13 @@ public class DrinkChoice extends AppCompatActivity {
 
     private void initImage() {
 
-        mImageNames.ResourcesCompat.getDrawable.add(R.drawable.coca_logo);
-        //mImages.add(R.drawable.coca_logo);
+        mImages.add(this.getResources().getDrawable(R.drawable.coca_logo));
         mImageNames.add("Coca");
 
-        //mImages.add(R.drawable.icetea_logo);
+        mImages.add(this.getResources().getDrawable(R.drawable.icetea_logo));
         mImageNames.add("Ice Tea");
 
-        //mImages.add(R.drawable.beer_logo);
+        mImages.add(this.getResources().getDrawable(R.drawable.beer_logo));
         mImageNames.add("Beer");
 
         initRecycleView();

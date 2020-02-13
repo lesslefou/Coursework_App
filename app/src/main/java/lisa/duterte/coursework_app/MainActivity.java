@@ -120,7 +120,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 startActivity(sign);
                 break;
             case R.id.btn_log:
-                Intent log = new Intent(this, Log_In.class);
+                //Intent log = new Intent(this, Log_In.class);
+                Intent log = new Intent(this, DrinkChoice.class);
                 startActivity(log);
                 break;
         }

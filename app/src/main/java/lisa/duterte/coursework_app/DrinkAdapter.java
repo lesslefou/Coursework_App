@@ -23,10 +23,10 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.ViewHolder> 
     private static final String TAG = "DrinkAdapter";
 
     private ArrayList<String> mImageNames = new ArrayList<>();
-    private ArrayList<String> mImages = new ArrayList<>();
+    private ArrayList<Object> mImages = new ArrayList<>();
     private Context mContext;
 
-    public DrinkAdapter(ArrayList<String> mImageNames, ArrayList<String> mImages, Context mContext) {
+    public DrinkAdapter(ArrayList<String> mImageNames, ArrayList<Object> mImages, Context mContext) {
         this.mImageNames = mImageNames;
         this.mImages = mImages;
         this.mContext = mContext;
