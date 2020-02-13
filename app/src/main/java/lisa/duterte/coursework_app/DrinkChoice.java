@@ -9,13 +9,11 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class DrinkChoice extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class DrinkChoice extends AppCompatActivity {
 
     private ArrayList<String> mImageNames = new ArrayList<>();
     private ArrayList<Object> mImages = new ArrayList<>();
@@ -26,27 +24,11 @@ public class DrinkChoice extends AppCompatActivity implements AdapterView.OnItem
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drink_choice);
 
-        Spinner spinner = findViewById(R.id.quantity);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.quantityNumbers, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
 
         initImage();
 
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String text = parent.getItemAtPosition(position).toString();
-        Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 
     private void initImage() {
 
@@ -63,9 +45,9 @@ public class DrinkChoice extends AppCompatActivity implements AdapterView.OnItem
     }
 
     private void initRecycleView() {
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        DrinkAdapter adapterChoise = new DrinkAdapter(mImageNames, mImages, this);
-        recyclerView.setAdapter(adapterChoise);
+        RecyclerView recyclerView = findViewById(R.id.recycler_view_drinks);
+        DrinkAdapter adapterChoice = new DrinkAdapter(mImageNames, mImages, this);
+        recyclerView.setAdapter(adapterChoice);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 

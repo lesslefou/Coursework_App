@@ -5,7 +5,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -16,7 +19,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 
 
-public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.ViewHolder> {
+public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.ViewHolder> implements AdapterView.OnItemSelectedListener {
     private static final String TAG = "DrinkAdapter";
 
     private ArrayList<String> mImageNames = new ArrayList<>();
@@ -33,6 +36,14 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_drink_adapter, parent,false);
+
+        Spinner spinner = view.findViewById(R.id.quantity);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(mContext,
+                R.array.quantityNumbers, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -69,5 +80,17 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.ViewHolder> 
             imageName = itemView.findViewById(R.id.cocaText);
             parentLayout = itemView.findViewById(R.id.parent_layout);
         }
+    }
+
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String text = parent.getItemAtPosition(position).toString();
+        Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
