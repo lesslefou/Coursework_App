@@ -30,6 +30,9 @@ public class Create_Activity extends AppCompatActivity {
         mImages.add(R.drawable.drink_logo);
         mImageNames.add("Choose your Drinks");
 
+        mImages.add(R.drawable.map_logo);
+        mImageNames.add("Choose your Destination");
+
         initCreateRecycleView();
     }
 
