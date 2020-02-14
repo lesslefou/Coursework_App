@@ -41,6 +41,12 @@ public class DrinkChoice extends AppCompatActivity {
         mImages.add(R.drawable.beer_logo);
         mImageNames.add("Beer");
 
+        mImages.add(R.drawable.seven_logo);
+        mImageNames.add("Seven Up");
+
+        mImages.add(R.drawable.sprite_logo);
+        mImageNames.add("Sprite");
+
         initRecycleView();
     }
 
