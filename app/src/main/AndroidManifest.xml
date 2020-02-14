@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Create_Activity_Adapter"></activity>
+        <activity android:name=".FoodChoice"></activity>
+        <activity android:name=".Create_Activity_Adapter" />
         <activity android:name=".Welcome" />
         <activity android:name=".DrinkAdapter" />
         <activity android:name=".DrinkChoice" />

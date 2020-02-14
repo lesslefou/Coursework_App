@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +48,16 @@ public class Create_Activity_Adapter extends RecyclerView.Adapter<Create_Activit
             public void onClick(View v) {
                 Log.d(TAG,"onClick:clicked on: " + mImageNames.get(position));
                 Toast.makeText(mContext,mImageNames.get(position),Toast.LENGTH_SHORT).show();
+
+
+                if (position == 0) {
+                    Intent i = new Intent(mContext, FoodChoice.class);
+                    mContext.startActivity(i);
+                } else {
+                    Intent i1 = new Intent(mContext, DrinkChoice.class);
+                    mContext.startActivity(i1);
+                }
+
             }
         });
     }

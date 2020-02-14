@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DrinkChoice">
+    tools:context=".FoodChoice">
+
 
     <TextView
-        android:id="@+id/titleDrink"
+        android:id="@+id/titleFood"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/drink"
+        android:text="@string/food"
         android:textSize="35sp"
         android:textColor="#FF0000"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +29,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="40dp"
         app:layout_constraintEnd_toStartOf="@id/choose"
-        app:layout_constraintTop_toBottomOf="@id/titleDrink"
+        app:layout_constraintTop_toBottomOf="@id/titleFood"
         android:layout_marginTop="10dp"/>
     <TextView
         android:id="@+id/choose"
@@ -39,7 +40,7 @@
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/category"
         app:layout_constraintEnd_toStartOf="@id/quantityText"
-        app:layout_constraintTop_toBottomOf="@id/titleDrink"
+        app:layout_constraintTop_toBottomOf="@id/titleFood"
         android:layout_marginTop="10dp"/>
     <TextView
         android:id="@+id/quantityText"
@@ -50,7 +51,7 @@
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/choose"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleDrink"
+        app:layout_constraintTop_toBottomOf="@id/titleFood"
         android:layout_marginTop="10dp"/>
 
 
@@ -84,5 +85,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/recycler_view_drinks"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
