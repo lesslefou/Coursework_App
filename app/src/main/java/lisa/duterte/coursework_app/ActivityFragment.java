@@ -27,7 +27,7 @@ public class ActivityFragment extends Fragment {
         create_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), DrinkChoice.class);
+                Intent i = new Intent(getActivity(), Create_Activity.class);
                 startActivity(i);
             }
         });
