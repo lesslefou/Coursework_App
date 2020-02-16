@@ -10,7 +10,8 @@ import android.widget.Toast;
 
 public class Add_Contact extends AppCompatActivity {
 
-    DatabaseContact myDbC;
+    DatabaseUser myDbU;
+    DataBaseContact myDbC;
     EditText editPseudo;
     Button btnAddData,btnBack;
     String pseudo;
@@ -20,12 +21,13 @@ public class Add_Contact extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add__contact);
 
-        myDbC = new DatabaseContact(this);
+        myDbU = new DatabaseUser(this);
+        myDbC = new DataBaseContact(this);
 
        editPseudo = findViewById(R.id.editText_pseudo);
 
 
-        btnAddData = findViewById(R.id.btn_create);
+        btnAddData = findViewById(R.id.btn_add);
         btnBack = findViewById(R.id.btn_back);
 
         AddData();
@@ -46,14 +48,20 @@ public class Add_Contact extends AppCompatActivity {
 
                 if (!pseudo.matches("")) {
 
-                    /*boolean isInserted = myDbC.insertData(pseudo);
-                    if(isInserted)
-                        Toast.makeText(Add_Contact.this,"Data Inserted",Toast.LENGTH_LONG).show();
-                    else
-                        Toast.makeText(Add_Contact.this,"Data not Inserted",Toast.LENGTH_LONG).show();*/
+                    boolean isFound = myDbU.checkPseudo(pseudo);
+                    if (isFound) {
+                        boolean isInserted = myDbC.insertPseudo(pseudo);
+                        if (isInserted)
+                            Toast.makeText(Add_Contact.this, "Contact Inserted", Toast.LENGTH_SHORT).show();
+                        else
+                            Toast.makeText(Add_Contact.this, "Pseudo already added", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(Add_Contact.this, "Pseudo not Found", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else{
-                    Toast.makeText(Add_Contact.this,"You need to fill all the information",Toast.LENGTH_LONG).show();
+                    Toast.makeText(Add_Contact.this,"You need to fill all the information",Toast.LENGTH_SHORT).show();
                 }
 
             }

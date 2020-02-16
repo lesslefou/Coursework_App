@@ -50,10 +50,6 @@ public class DatabaseUser extends SQLiteOpenHelper {
         else return true;
     }
 
-    public Integer deleteData(String pseudo) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        return  db.delete(TABLE_NAME,"PSEUDO = ?",new String[] {pseudo});
-    }
 
     public Cursor viewData() {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -61,7 +57,7 @@ public class DatabaseUser extends SQLiteOpenHelper {
         return  res;
     }
 
-    boolean search(String email, String password) {
+    boolean checkIfUserExist(String email, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         String savedEmail = null;
@@ -81,5 +77,21 @@ public class DatabaseUser extends SQLiteOpenHelper {
             else return false;
         }
         else return false;
+    }
+
+    boolean checkPseudo(String pseudo) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String savePseudo = null;
+        Cursor c = db.rawQuery("SELECT * FROM user_table WHERE pseudo = '"+pseudo+"'", null);
+        int pseudoIndex = c.getColumnIndex("PSEUDO");
+        c.moveToFirst();
+        if (c.moveToFirst()) {
+            savePseudo = c.getString(pseudoIndex);
+
+            return savePseudo.equals(pseudo);
+        }
+        else return false;
+
     }
 }

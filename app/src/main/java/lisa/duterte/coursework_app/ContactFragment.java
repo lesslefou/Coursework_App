@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 
 public class ContactFragment extends Fragment {
-    private DatabaseContact myDbC;
+    private DataBaseContact myDbC;
     private ArrayList<String> listContact;
     private ListView contactView;
 
@@ -43,17 +43,16 @@ public class ContactFragment extends Fragment {
 
 
         contactView = v.findViewById(R.id.listContactView);
-        myDbC = new DatabaseContact(getContext());
+        myDbC = new DataBaseContact(getContext());
         listContact = new ArrayList<>();
         viewData();
-
 
 
         return v;
     }
 
     private void viewData() {
-        Cursor cursor = myDbC.viewData();
+        Cursor cursor = myDbC.viewContact();
 
         if (cursor.getCount() == 0) {
             Toast.makeText(getContext(),"No Data to show", Toast.LENGTH_SHORT).show();

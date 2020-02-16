@@ -46,7 +46,7 @@ public class Log_In extends Activity implements View.OnClickListener {
         EditText emailText = findViewById(R.id.edit_email);
         EditText passwordText = findViewById(R.id.edit_password);
 
-        boolean isFound = myDbU.search(
+        boolean isFound = myDbU.checkIfUserExist(
                 emailText.getText().toString(),
                 passwordText.getText().toString());
 
