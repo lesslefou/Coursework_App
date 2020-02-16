@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class FoodChoice extends AppCompatActivity {
 
+    ///ATTENTION PERMETTRE LA DESELECTION !!!
 
     private ArrayList<String> mImageNames = new ArrayList<>();
     private ArrayList<Integer> mImages = new ArrayList<>();

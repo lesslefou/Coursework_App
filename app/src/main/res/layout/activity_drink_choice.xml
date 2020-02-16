@@ -26,18 +26,6 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="40dp"
-        app:layout_constraintEnd_toStartOf="@id/choose"
-        app:layout_constraintTop_toBottomOf="@id/titleDrink"
-        android:layout_marginTop="10dp"/>
-    <TextView
-        android:id="@+id/choose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/choose"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/category"
         app:layout_constraintEnd_toStartOf="@id/quantityText"
         app:layout_constraintTop_toBottomOf="@id/titleDrink"
         android:layout_marginTop="10dp"/>
@@ -48,7 +36,8 @@
         android:text="@string/quantity"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/choose"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="180dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleDrink"
         android:layout_marginTop="10dp"/>

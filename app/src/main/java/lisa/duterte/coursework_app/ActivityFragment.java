@@ -15,15 +15,13 @@ import android.widget.Button;
 
 public class ActivityFragment extends Fragment {
 
-    Button create_Btn;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
          View v = inflater.inflate(R.layout.fragment_activity, container, false);
 
-        create_Btn = v.findViewById(R.id.createBtn);
+        Button create_Btn = v.findViewById(R.id.createBtn);
         create_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
