@@ -11,21 +11,23 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatabaseContact extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "Contact.db";
-    private static final String TABLE_NAME = "contact_table";
+public class DatabaseUser extends SQLiteOpenHelper {
+    private static final String DATABASE_NAME = "User.db";
+    private static final String TABLE_NAME = "user_table";
     private static final String COL_1 = "NAME";
     private static final String COL_2 = "SURNAME";
     private static final String COL_3 = "EMAIL";
     private static final String COL_4 = "PSEUDO";
+    private static final String COL_5 = "PASSWORD";
 
-    DatabaseContact(@Nullable Context context) {
+
+    public DatabaseUser(@Nullable Context context){
         super(context, DATABASE_NAME, null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_NAME +  "(ID INTEGER PRIMARY KEY AUTOINCREMENT,NAME TEXT, SURNAME TEXT,EMAIL TEXT, PSEUDO TEXT)");
+        db.execSQL("create table " + TABLE_NAME +  "(ID INTEGER PRIMARY KEY AUTOINCREMENT,NAME TEXT, SURNAME TEXT,EMAIL TEXT, PSEUDO TEXT, PASSWORD TEXT)");
     }
 
     @Override
@@ -34,7 +36,7 @@ public class DatabaseContact extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    boolean insertData(String name, String surname, String email, String pseudo) {
+    boolean insertData(String name, String surname, String email, String pseudo, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
@@ -42,6 +44,7 @@ public class DatabaseContact extends SQLiteOpenHelper {
         contentValues.put(COL_2,surname);
         contentValues.put(COL_3,email);
         contentValues.put(COL_4,pseudo);
+        contentValues.put(COL_5,password);
         long result = db.insert(TABLE_NAME,null,contentValues);
         if (result == -1) return false;
         else return true;
@@ -58,24 +61,25 @@ public class DatabaseContact extends SQLiteOpenHelper {
         return  res;
     }
 
-    public List<String[]> selectAll() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        List<String[]> list = new ArrayList<String[]>();
-        Cursor cursor = db.query(TABLE_NAME, new String[]{"NAME", "SURNAME", "EMAIL", "PSEUDO"}, null, null, null, null, "name asc");
-        int x = 0;
-        if (cursor.moveToFirst()) {
-            do {
-                String[] b1 = new String[]{
-                        cursor.getString(1), cursor.getString(2),
-                        cursor.getString(3), cursor.getString(4)};
-                list.add(b1);
-                x++;
-            } while (cursor.moveToNext());
+    boolean search(String email, String password) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String savedEmail = null;
+        String savedPassword = null;
+
+        Cursor c = db.rawQuery("SELECT * FROM user_table WHERE email = '"+email+"'", null);
+        int emailIndex = c.getColumnIndex("EMAIL");
+        int passwordIndex = c.getColumnIndex("PASSWORD");
+        c.moveToFirst();
+        if (c.moveToFirst()) {
+            savedEmail = c.getString(emailIndex);
+            savedPassword = c.getString(passwordIndex);
+
+            if (savedEmail.equals(email)){
+                return savedPassword.equals(password);
+            }
+            else return false;
         }
-        if (cursor != null && !cursor.isClosed()) {
-            cursor.close();
-        }
-        cursor.close();
-        return list;
+        else return false;
     }
 }

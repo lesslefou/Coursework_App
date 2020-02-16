@@ -24,7 +24,7 @@
     <string name="myActivities"><u>My Activities</u></string>
     <string name="createAct">Create a new Activity</string>
     <string name="myContacts"><u>My Contacts</u></string>
-    <string name="createCont">Create a new Contact</string>
+    <string name="AddCont">Add a new Contact</string>
     <string name="create">Create</string>
 
     <string name="createTitle"><u>Create your new activity</u></string>

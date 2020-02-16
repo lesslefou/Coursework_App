@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -23,7 +24,6 @@ import java.util.ArrayList;
 public class ContactFragment extends Fragment {
     private DatabaseContact myDbC;
     private ArrayList<String> listContact;
-    private ArrayAdapter adapter;
     private ListView contactView;
 
     @Override
@@ -36,23 +36,18 @@ public class ContactFragment extends Fragment {
         create_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), Create_Contact.class);
+                Intent i = new Intent(getActivity(), Add_Contact.class);
                 startActivity(i);
             }
         });
 
+
+        contactView = v.findViewById(R.id.listContactView);
         myDbC = new DatabaseContact(getContext());
         listContact = new ArrayList<>();
-        contactView = v.findViewById(R.id.listContactView);
         viewData();
-        contactView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //PERMETTRE DE SUPPRIMER LE CONTACT LORSQU'IL CLICK DESSUS
-                String text = contactView.getItemAtPosition(position).toString();
-                Toast.makeText(getContext(),""+text,Toast.LENGTH_SHORT).show();
-            }
-        });
+
+
 
         return v;
     }
@@ -65,10 +60,10 @@ public class ContactFragment extends Fragment {
         }
         else {
             while (cursor.moveToNext()){
-                listContact.add(cursor.getString(1));
+                listContact.add(cursor.getString(4));
+                ArrayAdapter listAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, listContact);
+                contactView.setAdapter(listAdapter);
             }
-            adapter = new ArrayAdapter<>(getContext(), R.layout.fragment_contact, listContact);
-            contactView.setAdapter(adapter);
         }
     }
 }

@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class Sign_Up extends AppCompatActivity {
+    DatabaseUser myDbU;
     boolean validInfo = false;
     boolean validPassword = false;
     boolean validEmail = false;
@@ -29,6 +30,7 @@ public class Sign_Up extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign__up);
+        myDbU = new DatabaseUser(this);
 
 
         nameField = findViewById(R.id.edit_name);
@@ -50,9 +52,9 @@ public class Sign_Up extends AppCompatActivity {
                 surname = surnameField.getText().toString();
                 pseudo = pseudoField.getText().toString();
 
-                if (name.matches("") || surname.matches("") || pseudo.matches(""))
+                if (!name.matches("") || !surname.matches("") || !pseudo.matches(""))
                 {
-                    validInfo = false;
+                    validInfo = true;
                 }
 
                 //Check if email is correct
@@ -82,9 +84,9 @@ public class Sign_Up extends AppCompatActivity {
 
                 //Different reactions for the submitButton
                 if (validPassword && validEmail && validInfo) {
+                    addUser();
                     Intent i = new Intent(Sign_Up.this, Welcome.class);
                     startActivity(i);
-                    Toast.makeText(getBaseContext(), R.string.welcome, Toast.LENGTH_SHORT).show();
                     notificationDialog();
                 }
                 if (validInfo) {
@@ -113,6 +115,19 @@ public class Sign_Up extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void addUser() {
+        boolean isInserted = myDbU.insertData(
+                nameField.getText().toString(),
+                surnameField.getText().toString(),
+                emailField.getText().toString(),
+                pseudoField.getText().toString(),
+                passwordField.getText().toString());
+        if(isInserted)
+            Toast.makeText(getBaseContext(), R.string.welcome, Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(Sign_Up.this,"User not Inserted",Toast.LENGTH_LONG).show();
     }
 
     private void notificationDialog() {

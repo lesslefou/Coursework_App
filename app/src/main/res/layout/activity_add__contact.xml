@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Create_Contact">
+    tools:context=".Add_Contact">
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/createCont"
+        android:text="@string/AddCont"
         android:textSize="30sp"
         android:textColor="#FF0000"
         android:layout_marginTop="20dp"
@@ -25,53 +25,6 @@
         app:layout_constraintTop_toBottomOf="@+id/title"
         android:layout_marginTop="40dp">
 
-        <TextView
-            android:id="@+id/nameText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/name"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
-        <EditText
-            android:id="@+id/editText_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/nameText"
-            android:layout_toEndOf="@+id/nameText"
-            android:inputType="textPersonName"/>
-
-        <TextView
-            android:id="@+id/surnameText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/surname"
-            android:layout_below="@+id/editText_name"
-            android:layout_alignParentStart="true"  />
-        <EditText
-            android:id="@+id/editText_surname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/surnameText"
-            android:layout_toEndOf="@+id/surnameText"
-            android:inputType="textPersonName" />
-
-        <TextView
-            android:id="@+id/emailText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/email"
-            android:layout_below="@+id/editText_surname"
-            android:layout_alignParentStart="true" />
-        <EditText
-            android:id="@+id/editText_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/editText_surname"
-            android:layout_toEndOf="@+id/emailText"
-            android:inputType="textEmailAddress" />
 
         <TextView
             android:id="@+id/pseudoText"
@@ -79,7 +32,6 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/pseudo"
-            android:layout_below="@+id/editText_email"
             android:layout_alignParentStart="true" />
         <EditText
             android:id="@+id/editText_pseudo"
