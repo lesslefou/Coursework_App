@@ -11,11 +11,7 @@ import androidx.annotation.Nullable;
 public class DataBaseContact extends SQLiteOpenHelper{
     private static final String DATABASE_NAME = "Contact.db";
     private static final String CONTACT_NAME = "contact_table";
-    private static final String COL_1 = "NAME";
-    private static final String COL_2 = "SURNAME";
-    private static final String COL_3 = "EMAIL";
-    private static final String COL_4 = "PSEUDO";
-    private static final String COL_5 = "PASSWORD";
+    private static final String COL_1 = "PSEUDO";
 
 
     public DataBaseContact(@Nullable Context context){
@@ -36,7 +32,7 @@ public class DataBaseContact extends SQLiteOpenHelper{
     boolean insertPseudo(String pseudo) {
         SQLiteDatabase dbC = this.getWritableDatabase();
         ContentValues contentPseudo = new ContentValues();
-        contentPseudo.put(COL_4,pseudo);
+        contentPseudo.put(COL_1,pseudo);
         if (!checkPseudoContact(pseudo)) {
             long result = dbC.insert(CONTACT_NAME, null, contentPseudo);
             if (result == -1) return false;

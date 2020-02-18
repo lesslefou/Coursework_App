@@ -4,13 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
 public class DrinkChoice extends AppCompatActivity {
 
-    ///ATTENTION PERMETTRE LA DESELECTION !!!
-    
+    Button validate_btn;
     private ArrayList<String> mImageNames = new ArrayList<>();
     private ArrayList<Integer> mImages = new ArrayList<>();
 
@@ -20,7 +21,14 @@ public class DrinkChoice extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drink_choice);
 
-
+        validate_btn = findViewById(R.id.validateBtn);
+        validate_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                //Permettre la sauvegarde
+            }
+        });
         initImage();
 
     }

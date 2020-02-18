@@ -24,6 +24,9 @@ public class Create_Activity extends AppCompatActivity {
 
     private void initCreateImage() {
 
+        mImages.add(R.drawable.friends_logo);
+        mImageNames.add("Choose your Friends");
+
         mImages.add(R.drawable.food_logo);
         mImageNames.add("Choose your Foods");
 

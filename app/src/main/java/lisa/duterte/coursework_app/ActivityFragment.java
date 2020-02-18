@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+//https://www.youtube.com/watch?v=QY-O49a_Ags&t=6s pour la recherche de contact
 
 public class ActivityFragment extends Fragment {
 

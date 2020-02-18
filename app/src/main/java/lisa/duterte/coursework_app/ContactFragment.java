@@ -1,11 +1,14 @@
 package lisa.duterte.coursework_app;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -47,6 +50,14 @@ public class ContactFragment extends Fragment {
         listContact = new ArrayList<>();
         viewData();
 
+        contactView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Not able to get the string of the contact to delete it after...
+                // showInformationSavedDialog(listContact[position]);
+            }
+        });
+
 
         return v;
     }
@@ -64,5 +75,31 @@ public class ContactFragment extends Fragment {
                 contactView.setAdapter(listAdapter);
             }
         }
+    }
+
+    protected void showInformationSavedDialog(final String pseudo) {
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(getContext());
+        }
+        builder.setMessage(R.string.dialogue_message);
+        builder.setCancelable(false);
+        builder.setNegativeButton(R.string.no_answer, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.setPositiveButton(R.string.yes_answer, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                myDbC.deleteData(pseudo);
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }
