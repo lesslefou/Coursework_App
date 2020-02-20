@@ -21,13 +21,17 @@ import android.widget.Toast;
 public class Welcome extends AppCompatActivity {
     private static final String TAG = "Welcome";
     private static Welcome singleInstance;
-    private boolean isLoggingOut;
     Toolbar toolbar;
+    Integer idUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
+        idUser = getIntent().getExtras().getInt("idUser",-1);
+        Log.d("Welcome", "id récupére" + idUser);
+
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,7 +70,6 @@ public class Welcome extends AppCompatActivity {
 
         editor.commit();
         Welcome.getSingleInstance().setLoggingOut(true);
-        Log.d(TAG, "Now log out and start the activity login");
         Intent intent = new Intent(Welcome.this,
                 MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -77,10 +80,10 @@ public class Welcome extends AppCompatActivity {
         if (singleInstance == null) {
             singleInstance = new Welcome();
         }
+
         return singleInstance;
     }
     public void setLoggingOut(boolean isLoggingOut) {
-        this.isLoggingOut = isLoggingOut;
     }
 
     public void onSelectFragment(View view) {
@@ -92,6 +95,9 @@ public class Welcome extends AppCompatActivity {
             newFragment = new ContactFragment();
         }
 
+        Bundle b = new Bundle();
+        b.putInt("idUser",idUser);
+        newFragment.setArguments(b);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_place, newFragment);
         transaction.addToBackStack(null);

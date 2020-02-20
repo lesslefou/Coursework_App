@@ -11,6 +11,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,12 +35,16 @@ public class ContactFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_contact, container, false);
+        Bundle b = getArguments();
+        final int idUser = b.getInt("idUser");
+        Log.d("ContactFragment", "id récupére" + idUser);
 
         Button create_Btn = v.findViewById(R.id.createBtn);
         create_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), Add_Contact.class);
+                i.putExtra("idUser",idUser);
                 startActivity(i);
             }
         });
@@ -53,8 +58,9 @@ public class ContactFragment extends Fragment {
         contactView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Not able to get the string of the contact to delete it after...
-                // showInformationSavedDialog(listContact[position]);
+                String recup_pseudo = listContact.get(position);
+                showInformationSavedDialog(recup_pseudo);
+
             }
         });
 
@@ -95,8 +101,9 @@ public class ContactFragment extends Fragment {
         builder.setPositiveButton(R.string.yes_answer, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
                 myDbC.deleteData(pseudo);
+                Intent i = new Intent(getActivity(), ContactFragment.class);
+                startActivity(i);
             }
         });
         AlertDialog alert = builder.create();

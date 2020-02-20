@@ -12,6 +12,7 @@ public class DataBaseContact extends SQLiteOpenHelper{
     private static final String DATABASE_NAME = "Contact.db";
     private static final String CONTACT_NAME = "contact_table";
     private static final String COL_1 = "PSEUDO";
+    private static final String COL_2 = "USER";
 
 
     public DataBaseContact(@Nullable Context context){
@@ -21,7 +22,7 @@ public class DataBaseContact extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase dbC) {
-        dbC.execSQL("create table " + CONTACT_NAME +  "(ID INTEGER PRIMARY KEY AUTOINCREMENT, PSEUDO TEXT)");
+        dbC.execSQL("create table " + CONTACT_NAME +  "(ID INTEGER PRIMARY KEY AUTOINCREMENT, PSEUDO TEXT,USER INTEGER)");
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -29,10 +30,11 @@ public class DataBaseContact extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    boolean insertPseudo(String pseudo) {
+    boolean insertPseudo(String pseudo, Integer user) {
         SQLiteDatabase dbC = this.getWritableDatabase();
         ContentValues contentPseudo = new ContentValues();
         contentPseudo.put(COL_1,pseudo);
+        contentPseudo.put(COL_2,user);
         if (!checkPseudoContact(pseudo)) {
             long result = dbC.insert(CONTACT_NAME, null, contentPseudo);
             if (result == -1) return false;

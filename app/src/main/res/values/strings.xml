@@ -34,6 +34,7 @@
     <string name="drink">Choose your Drinks</string>
     <string name="food">Choose your Foods</string>
     <string name="friends">Choose your Friends</string>
+    <string name="location">Choose the location of the party</string>
 
     <string name="validateBtn">Validate</string>
     <string name="coca">Coca</string>
@@ -56,6 +57,7 @@
         <item>9</item>
     </string-array>
 
+    <string name="address">Address : </string>
 
     <string name="setting">Setting</string>
     <string name="logout">Logout</string>

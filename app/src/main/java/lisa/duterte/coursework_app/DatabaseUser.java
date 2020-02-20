@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -57,26 +58,33 @@ public class DatabaseUser extends SQLiteOpenHelper {
         return  res;
     }
 
-    boolean checkIfUserExist(String email, String password) {
+    int checkIfUserExist(String email, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String savedEmail = null;
-        String savedPassword = null;
+        String savedEmail;
+        String savedPassword;
+        int idFound;
 
         Cursor c = db.rawQuery("SELECT * FROM user_table WHERE email = '"+email+"'", null);
         int emailIndex = c.getColumnIndex("EMAIL");
         int passwordIndex = c.getColumnIndex("PASSWORD");
+        int idIndex = c.getColumnIndex("ID");
         c.moveToFirst();
         if (c.moveToFirst()) {
             savedEmail = c.getString(emailIndex);
             savedPassword = c.getString(passwordIndex);
+            idFound = c.getInt(idIndex);
+            Log.d("BddUser", "Id = " + idFound);
 
             if (savedEmail.equals(email)){
-                return savedPassword.equals(password);
+                if (savedPassword.equals(password)) {
+                    return idFound;
+                }
+                else return -1;
             }
-            else return false;
+            else return -1;
         }
-        else return false;
+        else return -1;
     }
 
     boolean checkPseudo(String pseudo) {
@@ -92,6 +100,17 @@ public class DatabaseUser extends SQLiteOpenHelper {
             return savePseudo.equals(pseudo);
         }
         else return false;
+    }
 
+    //Retourne 1 peut importe l'utilisateur = faux
+    int idRecover() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM user_table WHERE id ", null);
+        int pseudoIndex = c.getColumnIndex("ID");
+        int saveid = -1;
+        if (c.moveToFirst()) {
+            return saveid = c.getInt(pseudoIndex);
+        }
+        return -1;
     }
 }

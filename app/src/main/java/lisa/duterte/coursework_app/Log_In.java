@@ -30,8 +30,10 @@ public class Log_In extends Activity implements View.OnClickListener {
                 break;
             case R.id.btn_log:
                 //Checker si la personne à bien un compte sur l'app
-                if (checkUser()) {
+                int number = checkUser();
+                if (number != -1) {
                     Intent i = new Intent(this, Welcome.class);
+                    i.putExtra("idUser",number);
                     startActivity(i);
                 }
                 else {
@@ -42,13 +44,13 @@ public class Log_In extends Activity implements View.OnClickListener {
 
     }
 
-    private boolean checkUser() {
+    private int checkUser() {
         EditText emailText = findViewById(R.id.edit_email);
         EditText passwordText = findViewById(R.id.edit_password);
 
-        boolean isFound = myDbU.checkIfUserExist(
-                emailText.getText().toString(),
-                passwordText.getText().toString());
+        int isFound = myDbU.checkIfUserExist(
+                    emailText.getText().toString(),
+                    passwordText.getText().toString());
 
         return isFound;
     }

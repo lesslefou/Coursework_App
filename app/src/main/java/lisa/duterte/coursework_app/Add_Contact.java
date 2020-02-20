@@ -3,6 +3,7 @@ package lisa.duterte.coursework_app;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,12 +16,15 @@ public class Add_Contact extends AppCompatActivity {
     EditText editPseudo;
     Button btnAddData,btnBack;
     String pseudo;
+    Integer user = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add__contact);
 
+        int idUser = getIntent().getExtras().getInt("idUser",-1);
+        Log.d("Add_Contact", "id récupére" + idUser);
         myDbU = new DatabaseUser(this);
         myDbC = new DataBaseContact(this);
 
@@ -30,7 +34,7 @@ public class Add_Contact extends AppCompatActivity {
         btnAddData = findViewById(R.id.btn_add);
         btnBack = findViewById(R.id.btn_back);
 
-        AddData();
+        AddData(idUser);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,18 +43,21 @@ public class Add_Contact extends AppCompatActivity {
         });
     }
 
-    public void AddData() {
+    public void AddData(final int idUser) {
         btnAddData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                pseudo = editPseudo.getText().toString();
+               //user = //recupérer l'id de l'utilisateur;
+               // int nbUser = myDbU.idRecover();
+               // Log.d("Add_Contact", "id = "+nbUser);
 
                 if (!pseudo.matches("")) {
 
                     boolean isFound = myDbU.checkPseudo(pseudo);
                     if (isFound) {
-                        boolean isInserted = myDbC.insertPseudo(pseudo);
+                        boolean isInserted = myDbC.insertPseudo(pseudo,idUser);
                         if (isInserted)
                             Toast.makeText(Add_Contact.this, "Contact Inserted", Toast.LENGTH_SHORT).show();
                         else
