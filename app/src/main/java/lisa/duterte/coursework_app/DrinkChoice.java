@@ -27,6 +27,11 @@ public class DrinkChoice extends AppCompatActivity {
             public void onClick(View v) {
                 finish();
                 //Permettre la sauvegarde
+
+
+                /*for (int i=0; i < getItemCount() ; i++){
+
+                 }*/
             }
         });
         initImage();

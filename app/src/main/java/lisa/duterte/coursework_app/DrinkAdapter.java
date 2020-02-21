@@ -7,7 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -27,6 +29,7 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.ViewHolder> 
     private ArrayList<String> mImageNames = new ArrayList<>();
     private ArrayList<Integer> mImages = new ArrayList<>();
     private Context mContext;
+    private Button validate;
 
     public DrinkAdapter(ArrayList<String> mImageNames, ArrayList<Integer> mImages, Context mContext) {
         this.mImageNames = mImageNames;
@@ -45,6 +48,7 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.ViewHolder> 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+
 
         ViewHolder holder = new ViewHolder(view);
         return holder;
@@ -91,8 +95,10 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkAdapter.ViewHolder> 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         /*String text = parent.getItemAtPosition(position).toString();
-        Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();*/
+        int quantity = Integer.parseInt(text);
+        Log.d("DrinkAdapter ", ""+quantity);*/
     }
+
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
