@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class DataBaseContact extends SQLiteOpenHelper{
-    private static final String DATABASE_NAME = "Contact.db";
+    private static final String DATABASE_NAME = "Contact.dbC";
     private static final String CONTACT_NAME = "contact_table";
     private static final String COL_1 = "PSEUDO";
     private static final String COL_2 = "USER";
@@ -25,9 +25,9 @@ public class DataBaseContact extends SQLiteOpenHelper{
         dbC.execSQL("create table " + CONTACT_NAME +  "(ID INTEGER PRIMARY KEY AUTOINCREMENT, PSEUDO TEXT, USER INTEGER)");
     }
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + CONTACT_NAME);
-        onCreate(db);
+    public void onUpgrade(SQLiteDatabase dbC, int oldVersion, int newVersion) {
+        dbC.execSQL("DROP TABLE IF EXISTS " + CONTACT_NAME);
+        onCreate(dbC);
     }
 
     boolean insertPseudo(String pseudo, Integer user) {
@@ -35,7 +35,7 @@ public class DataBaseContact extends SQLiteOpenHelper{
         ContentValues contentPseudo = new ContentValues();
         contentPseudo.put(COL_1,pseudo);
         contentPseudo.put(COL_2,user);
-        if (!checkPseudoContact(pseudo)) {
+        if (!checkPseudoContact(pseudo,user)) {
             long result = dbC.insert(CONTACT_NAME, null, contentPseudo);
             if (result == -1) return false;
             else return true;
@@ -44,28 +44,60 @@ public class DataBaseContact extends SQLiteOpenHelper{
     }
 
     public Cursor viewContact(Integer idUser) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM contact_table WHERE user = '"+idUser+"'", null);
+        SQLiteDatabase dbC = this.getReadableDatabase();
+        Cursor c = dbC.rawQuery("SELECT * FROM contact_table WHERE user = '"+idUser+"'", null);
         return  c;
     }
 
-    private boolean checkPseudoContact(String pseudo) {
-        SQLiteDatabase db = this.getReadableDatabase();
+    private boolean checkPseudoContact(String pseudo,Integer idUser) {
+        SQLiteDatabase dbC = this.getReadableDatabase();
 
         String savePseudo = null;
-        Cursor c = db.rawQuery("SELECT * FROM contact_table WHERE pseudo = '"+pseudo+"'", null);
-        int pseudoIndex = c.getColumnIndex("PSEUDO");
+        int check=0;
+        Cursor c = dbC.rawQuery("SELECT * FROM contact_table WHERE user = '"+idUser+"'", null);
+        int userIndex = c.getColumnIndex("USER");
         c.moveToFirst();
         if (c.moveToFirst()) {
-            savePseudo = c.getString(pseudoIndex);
-
-            return savePseudo.equals(pseudo);
+            while (c.moveToNext()){
+                savePseudo = c.getString(userIndex);
+                if (savePseudo.equals(pseudo)){
+                    check = 1;
+                }
+            }
         }
+        else {
+            return false;
+        }
+        if (check == 1) return true;
         else return false;
     }
 
+
+    /*
+    Cursor c = db.rawQuery("SELECT * FROM user_table WHERE email = '"+email+"'", null);
+        int emailIndex = c.getColumnIndex("EMAIL");
+        int passwordIndex = c.getColumnIndex("PASSWORD");
+        int idIndex = c.getColumnIndex("ID");
+        c.moveToFirst();
+        if (c.moveToFirst()) {
+            savedEmail = c.getString(emailIndex);
+            savedPassword = c.getString(passwordIndex);
+            idFound = c.getInt(idIndex);
+            Log.d("BddUser", "Id = " + idFound);
+
+            if (savedEmail.equals(email)){
+                if (savedPassword.equals(password)) {
+                    return idFound;
+                }
+                else return -1;
+            }
+            else return -1;
+        }
+        else return -1;
+     */
+
     public Integer deleteData(String pseudo) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        return  db.delete(CONTACT_NAME,"PSEUDO = ?",new String[] {pseudo});
+        SQLiteDatabase dbC = this.getWritableDatabase();
+        return  dbC.delete(CONTACT_NAME,"PSEUDO = ?",new String[] {pseudo});
     }
 }

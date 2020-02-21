@@ -53,7 +53,7 @@ public class ContactFragment extends Fragment {
         contactView = v.findViewById(R.id.listContactView);
         myDbC = new DataBaseContact(getContext());
         listContact = new ArrayList<>();
-        viewData();
+        viewData(idUser);
 
         contactView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -68,15 +68,15 @@ public class ContactFragment extends Fragment {
         return v;
     }
 
-    private void viewData() {
-        Cursor cursor = myDbC.viewContact();
+    private void viewData(int user) {
+        Cursor cursor = myDbC.viewContact(user);
 
         if (cursor.getCount() == 0) {
             Toast.makeText(getContext(),"No Data to show", Toast.LENGTH_SHORT).show();
         }
         else {
             while (cursor.moveToNext()){
-                listContact.add(cursor.getString(4));
+                listContact.add(cursor.getString(1));
                 ArrayAdapter listAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, listContact);
                 contactView.setAdapter(listAdapter);
             }
