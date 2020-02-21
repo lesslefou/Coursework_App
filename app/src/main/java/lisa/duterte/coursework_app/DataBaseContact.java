@@ -73,29 +73,6 @@ public class DataBaseContact extends SQLiteOpenHelper{
     }
 
 
-    /*
-    Cursor c = db.rawQuery("SELECT * FROM user_table WHERE email = '"+email+"'", null);
-        int emailIndex = c.getColumnIndex("EMAIL");
-        int passwordIndex = c.getColumnIndex("PASSWORD");
-        int idIndex = c.getColumnIndex("ID");
-        c.moveToFirst();
-        if (c.moveToFirst()) {
-            savedEmail = c.getString(emailIndex);
-            savedPassword = c.getString(passwordIndex);
-            idFound = c.getInt(idIndex);
-            Log.d("BddUser", "Id = " + idFound);
-
-            if (savedEmail.equals(email)){
-                if (savedPassword.equals(password)) {
-                    return idFound;
-                }
-                else return -1;
-            }
-            else return -1;
-        }
-        else return -1;
-     */
-
     public Integer deleteData(String pseudo) {
         SQLiteDatabase dbC = this.getWritableDatabase();
         return  dbC.delete(CONTACT_NAME,"PSEUDO = ?",new String[] {pseudo});

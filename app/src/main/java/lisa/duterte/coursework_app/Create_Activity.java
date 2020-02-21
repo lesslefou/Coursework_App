@@ -4,21 +4,46 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Create_Activity extends AppCompatActivity {
 
+    DataBaseActivity myDbA;
     private ArrayList<String> mImageNames = new ArrayList<>();
     private ArrayList<Integer> mImages = new ArrayList<>();
-
+    String nameActivity;
+    Integer idUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_);
+        myDbA = new DataBaseActivity(this);
 
+        nameActivity = Objects.requireNonNull(getIntent().getExtras()).getString("NAME","Error");
+        Log.d("Create_Activity", "name récupéré " + nameActivity);
+        idUser = Objects.requireNonNull(getIntent().getExtras()).getInt("USER",-1);
+        Log.d("Create_Activity", "id récupéré " + idUser);
+
+        TextView printNameField = findViewById(R.id.nameActivity);
+        printNameField.setText(nameActivity);
+
+        addActivity(idUser,nameActivity);
         initCreateImage();
 
+    }
+
+    private void addActivity(Integer idUser, String nameActivity) {
+        boolean isInserted = myDbA.insertActivity(idUser,nameActivity);
+        if (isInserted)
+            Toast.makeText(Create_Activity.this, "Activity Inserted", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(Create_Activity.this, "Error", Toast.LENGTH_SHORT).show();
     }
 
 

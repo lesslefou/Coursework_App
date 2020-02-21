@@ -23,6 +23,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class ContactFragment extends Fragment {
@@ -36,7 +37,7 @@ public class ContactFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_contact, container, false);
         Bundle b = getArguments();
-        final int idUser = b.getInt("idUser");
+        final int idUser = Objects.requireNonNull(b).getInt("idUser");
         Log.d("ContactFragment", "id récupéré" + idUser);
 
         Button create_Btn = v.findViewById(R.id.createBtn);
