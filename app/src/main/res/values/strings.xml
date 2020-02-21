@@ -18,6 +18,7 @@
     <string name="notInfo">You need to fill in all the fields</string>
 
     <string name="welcomeMessage">So nice to see you again !!</string>
+    <string name="welcomeUser">Welcome </string>
 
     <string name="activities">Activities</string>
     <string name="contact">Contacts</string>

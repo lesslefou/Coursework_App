@@ -22,7 +22,7 @@ public class DataBaseContact extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase dbC) {
-        dbC.execSQL("create table " + CONTACT_NAME +  "(ID INTEGER PRIMARY KEY AUTOINCREMENT, PSEUDO TEXT,USER INTEGER)");
+        dbC.execSQL("create table " + CONTACT_NAME +  "(ID INTEGER PRIMARY KEY AUTOINCREMENT, PSEUDO TEXT, USER INTEGER)");
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -43,10 +43,10 @@ public class DataBaseContact extends SQLiteOpenHelper{
         else return false;
     }
 
-    public Cursor viewContact() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("Select * from " + CONTACT_NAME, null);
-        return  res;
+    public Cursor viewContact(Integer idUser) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM contact_table WHERE user = '"+idUser+"'", null);
+        return  c;
     }
 
     private boolean checkPseudoContact(String pseudo) {

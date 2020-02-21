@@ -28,7 +28,7 @@ public class DatabaseUser extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_NAME +  "(ID INTEGER PRIMARY KEY AUTOINCREMENT,NAME TEXT, SURNAME TEXT,EMAIL TEXT, PSEUDO TEXT, PASSWORD TEXT)");
+        db.execSQL("create table " + TABLE_NAME +  "(ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, SURNAME TEXT, EMAIL TEXT, PSEUDO TEXT, PASSWORD TEXT)");
     }
 
     @Override
@@ -102,15 +102,18 @@ public class DatabaseUser extends SQLiteOpenHelper {
         else return false;
     }
 
-    //Retourne 1 peut importe l'utilisateur = faux
-    int idRecover() {
+    String nameRecover(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM user_table WHERE id ", null);
-        int pseudoIndex = c.getColumnIndex("ID");
-        int saveid = -1;
+
+        String nameSave = null;
+
+        Cursor c = db.rawQuery("SELECT * FROM user_table WHERE id = '"+id+"'", null);
+        int nameIndex = c.getColumnIndex("NAME");
+        c.moveToFirst();
         if (c.moveToFirst()) {
-            return saveid = c.getInt(pseudoIndex);
+            return nameSave = c.getString(nameIndex);
         }
-        return -1;
+        else
+            return "error";
     }
 }

@@ -2,12 +2,15 @@ package lisa.duterte.coursework_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.util.Objects;
 
 public class Add_Contact extends AppCompatActivity {
 
@@ -23,8 +26,8 @@ public class Add_Contact extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add__contact);
 
-        int idUser = getIntent().getExtras().getInt("idUser",-1);
-        Log.d("Add_Contact", "id récupére" + idUser);
+        int idUser = Objects.requireNonNull(getIntent().getExtras()).getInt("IDUSER",-1);
+        Log.d("Add_Contact", "id récupéré" + idUser);
         myDbU = new DatabaseUser(this);
         myDbC = new DataBaseContact(this);
 
@@ -43,21 +46,17 @@ public class Add_Contact extends AppCompatActivity {
         });
     }
 
-    public void AddData(final int idUser) {
+    public void AddData(final Integer user) {
         btnAddData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                pseudo = editPseudo.getText().toString();
-               //user = //recupérer l'id de l'utilisateur;
-               // int nbUser = myDbU.idRecover();
-               // Log.d("Add_Contact", "id = "+nbUser);
-
                 if (!pseudo.matches("")) {
 
                     boolean isFound = myDbU.checkPseudo(pseudo);
                     if (isFound) {
-                        boolean isInserted = myDbC.insertPseudo(pseudo,idUser);
+                        boolean isInserted = myDbC.insertPseudo(pseudo,user);
                         if (isInserted)
                             Toast.makeText(Add_Contact.this, "Contact Inserted", Toast.LENGTH_SHORT).show();
                         else

@@ -37,14 +37,14 @@ public class ContactFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_contact, container, false);
         Bundle b = getArguments();
         final int idUser = b.getInt("idUser");
-        Log.d("ContactFragment", "id récupére" + idUser);
+        Log.d("ContactFragment", "id récupéré" + idUser);
 
         Button create_Btn = v.findViewById(R.id.createBtn);
         create_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), Add_Contact.class);
-                i.putExtra("idUser",idUser);
+                i.putExtra("IDUSER",idUser);
                 startActivity(i);
             }
         });
@@ -102,8 +102,7 @@ public class ContactFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 myDbC.deleteData(pseudo);
-                Intent i = new Intent(getActivity(), ContactFragment.class);
-                startActivity(i);
+                dialog.cancel();
             }
         });
         AlertDialog alert = builder.create();

@@ -30,16 +30,20 @@ public class Welcome extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
         idUser = getIntent().getExtras().getInt("idUser",-1);
-        Log.d("Welcome", "id récupére" + idUser);
+        Log.d("Welcome", "id récupéré" + idUser);
 
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
         StartFragment startFragment = new StartFragment();
 
+        Bundle b = new Bundle();
+        b.putInt("idUser",idUser);
+        startFragment.setArguments(b);
         transaction.add(R.id.fragment_place,startFragment);
         transaction.commit();
     }
