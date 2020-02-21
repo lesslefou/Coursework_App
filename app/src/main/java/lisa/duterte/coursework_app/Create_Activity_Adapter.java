@@ -49,13 +49,24 @@ public class Create_Activity_Adapter extends RecyclerView.Adapter<Create_Activit
                 Log.d(TAG,"onClick:clicked on: " + mImageNames.get(position));
                 Toast.makeText(mContext,mImageNames.get(position),Toast.LENGTH_SHORT).show();
 
+                switch (position) {
+                    case 0:
+                        Intent i = new Intent(mContext, FoodChoice.class);
+                        mContext.startActivity(i);
+                        break;
+                    case 1:
+                        Intent i1 = new Intent(mContext, FoodChoice.class);
+                        mContext.startActivity(i1);
+                        break;
+                    case 2:
+                        Intent i2 = new Intent(mContext, DrinkChoice.class);
+                        mContext.startActivity(i2);
+                        break;
+                    case 3:
+                        Intent i3 = new Intent(mContext, LocationChoice.class);
+                        mContext.startActivity(i3);
+                        break;
 
-                if (position == 0) {
-                    Intent i = new Intent(mContext, FoodChoice.class);
-                    mContext.startActivity(i);
-                } else {
-                    Intent i1 = new Intent(mContext, DrinkChoice.class);
-                    mContext.startActivity(i1);
                 }
 
             }
