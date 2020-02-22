@@ -14,7 +14,7 @@ public class DataBaseActivity extends SQLiteOpenHelper {
     private static final String ACTIVITY_NAME = "activity_table";
     private static final String COL_1 = "NAME";
     private static final String COL_2 = "USER";
-    private static final String COL_3 = "SHARE";
+    private static final String COL_3 = "ADDRESS";
 
 
     public DataBaseActivity(@Nullable Context context) {
@@ -24,7 +24,7 @@ public class DataBaseActivity extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase dbA) {
-        dbA.execSQL("create table " + ACTIVITY_NAME + "(NUMBER INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, USER INTEGER, SHARE INTEGER)");
+        dbA.execSQL("create table " + ACTIVITY_NAME + "(NUMBER INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, USER INTEGER, ADDRESS INTEGER)");
     }
 
     @Override
@@ -35,13 +35,24 @@ public class DataBaseActivity extends SQLiteOpenHelper {
 
     boolean insertActivity(Integer user, String name) {
         SQLiteDatabase dbA = this.getWritableDatabase();
+        //String address = "";
         ContentValues contentActivity = new ContentValues();
         contentActivity.put(COL_1, name);
         contentActivity.put(COL_2, user);
+       // contentActivity.put(COL_3, address);
 
         long result = dbA.insert(ACTIVITY_NAME, null, contentActivity);
         if (result == -1) return false;
         else return true;
+    }
+
+    boolean insertAddress(String address,Integer activity_number) {
+        SQLiteDatabase dbA = this.getWritableDatabase();
+        ContentValues contentActivity = new ContentValues();
+        contentActivity.put(COL_3, address);
+
+        dbA.update(ACTIVITY_NAME,contentActivity,"NUMBER = ?",new  String[] {activity_number.toString()});
+        return true;
     }
 
     //Faire une fonction qui ajoute les SHARE

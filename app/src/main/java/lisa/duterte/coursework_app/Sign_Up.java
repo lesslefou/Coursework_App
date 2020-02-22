@@ -86,6 +86,7 @@ public class Sign_Up extends AppCompatActivity {
                 if (validPassword && validEmail && validInfo) {
                     addUser();
                     Intent i = new Intent(Sign_Up.this, Welcome.class);
+                    //i.putExtra("idUser",number);
                     startActivity(i);
                     notificationDialog();
                 }

@@ -61,14 +61,17 @@ public class Create_Activity_Adapter extends RecyclerView.Adapter<Create_Activit
                         break;
                     case 1:
                         Intent i1 = new Intent(mContext, FoodChoice.class);
+                        i1.putExtra("ACTNUMBER",activity_number);
                         mContext.startActivity(i1);
                         break;
                     case 2:
                         Intent i2 = new Intent(mContext, DrinkChoice.class);
+                        i2.putExtra("ACTNUMBER",activity_number);
                         mContext.startActivity(i2);
                         break;
                     case 3:
                         Intent i3 = new Intent(mContext, LocationChoice.class);
+                        i3.putExtra("ACTNUMBER",activity_number);
                         mContext.startActivity(i3);
                         break;
 
