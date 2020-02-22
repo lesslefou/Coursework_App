@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,7 +18,7 @@ public class Create_Activity extends AppCompatActivity {
     private ArrayList<String> mImageNames = new ArrayList<>();
     private ArrayList<Integer> mImages = new ArrayList<>();
     String nameActivity;
-    Integer idUser;
+    Integer idUser, activity_number;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +66,21 @@ public class Create_Activity extends AppCompatActivity {
     }
 
     private void initCreateRecycleView() {
-        RecyclerView recyclerView = findViewById(R.id.recycler_view_create);
-        Create_Activity_Adapter adapterCreate = new Create_Activity_Adapter(mImageNames, mImages, this);
-        recyclerView.setAdapter(adapterCreate);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        activity_number = checkActivity();
+        Log.d("Create_Activity","number = "+ activity_number);
+        if (activity_number != -1) {
+            RecyclerView recyclerView = findViewById(R.id.recycler_view_create);
+            Create_Activity_Adapter adapterCreate = new Create_Activity_Adapter(mImageNames, mImages, this,idUser,activity_number);
+            recyclerView.setAdapter(adapterCreate);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        }
+        else {
+            Toast.makeText(Create_Activity.this,"No activity found",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private int checkActivity() {
+
+        return (int) myDbA.numberActivityRecover(nameActivity,idUser);
     }
 }

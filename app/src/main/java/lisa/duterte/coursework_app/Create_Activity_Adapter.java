@@ -21,11 +21,14 @@ public class Create_Activity_Adapter extends RecyclerView.Adapter<Create_Activit
     private ArrayList<String> mImageNames = new ArrayList<>();
     private ArrayList<Integer> mImages = new ArrayList<>();
     private Context mContext;
+    private Integer idUser,activity_number;
 
-    public Create_Activity_Adapter(ArrayList<String> mImageNames, ArrayList<Integer> mImages, Context mContext) {
+    public Create_Activity_Adapter(ArrayList<String> mImageNames, ArrayList<Integer> mImages, Context mContext, Integer idUser, Integer activity_Number) {
         this.mImageNames = mImageNames;
         this.mImages = mImages;
         this.mContext = mContext;
+        this.idUser = idUser;
+        this.activity_number = activity_Number;
     }
 
     @NonNull
@@ -51,7 +54,9 @@ public class Create_Activity_Adapter extends RecyclerView.Adapter<Create_Activit
 
                 switch (position) {
                     case 0:
-                        Intent i = new Intent(mContext, FoodChoice.class);
+                        Intent i = new Intent(mContext, ContactChoice.class);
+                        i.putExtra("IDUSER",idUser);
+                        i.putExtra("ACTNUMBER",activity_number);
                         mContext.startActivity(i);
                         break;
                     case 1:

@@ -52,10 +52,12 @@ public class Add_Contact extends AppCompatActivity {
             public void onClick(View v) {
 
                pseudo = editPseudo.getText().toString();
+               //Check si le user à entrer un pseudo
                 if (!pseudo.matches("")) {
-
+                    //check si le pseudo existe dans la bddUser
                     boolean isFound = myDbU.checkPseudo(pseudo);
                     if (isFound) {
+                        //chekc si le user possède déjà ou pas encore le contact
                         boolean isInserted = myDbC.insertPseudo(pseudo,user);
                         if (isInserted)
                             Toast.makeText(Add_Contact.this, "Contact Inserted", Toast.LENGTH_SHORT).show();
