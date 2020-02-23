@@ -61,6 +61,11 @@ public class Welcome extends AppCompatActivity {
             case R.id.logout:
                 logout();
                 return true;
+            case R.id.setting:
+                Intent i = new Intent(Welcome.this, Setting.class);
+                i.putExtra("IDUSER",idUser);
+                startActivity(i);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -74,8 +79,7 @@ public class Welcome extends AppCompatActivity {
 
         editor.commit();
         Welcome.getSingleInstance().setLoggingOut(true);
-        Intent intent = new Intent(Welcome.this,
-                MainActivity.class);
+        Intent intent = new Intent(Welcome.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }

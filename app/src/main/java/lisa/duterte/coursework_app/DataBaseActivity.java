@@ -55,8 +55,6 @@ public class DataBaseActivity extends SQLiteOpenHelper {
         return true;
     }
 
-    //Faire une fonction qui ajoute les SHARE
-
     public Integer deleteActivity(String name) {
         SQLiteDatabase dbA = this.getWritableDatabase();
         return dbA.delete(ACTIVITY_NAME, "NAME = ?", new String[]{name});

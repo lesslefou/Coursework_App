@@ -102,18 +102,36 @@ public class DatabaseUser extends SQLiteOpenHelper {
         else return false;
     }
 
-    String nameRecover(int id) {
+    String nameRecover(int id, int choix) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String nameSave = null;
 
         Cursor c = db.rawQuery("SELECT * FROM user_table WHERE id = '"+id+"'", null);
         int nameIndex = c.getColumnIndex("NAME");
+        int surnameIndex = c.getColumnIndex("SURNAME");
+        int emailIndex = c.getColumnIndex("EMAIL");
+        int pseudoIndex = c.getColumnIndex("PSEUDO");
         c.moveToFirst();
         if (c.moveToFirst()) {
-            return nameSave = c.getString(nameIndex);
+            switch (choix) {
+                case 0:
+                    return c.getString(nameIndex);
+                case 1:
+                    return c.getString(surnameIndex);
+                case 2:
+                    return c.getString(emailIndex);
+                case 3:
+                    return c.getString(pseudoIndex);
+            }
         }
         else
             return "error";
+        return "error";
+    }
+
+
+    public Integer deleteUser(String pseudo) {
+        SQLiteDatabase dbC = this.getWritableDatabase();
+        return  dbC.delete(TABLE_NAME,"PSEUDO = ?",new String[] {pseudo});
     }
 }

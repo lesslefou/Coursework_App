@@ -27,7 +27,7 @@ public class StartFragment extends Fragment {
 
         myDbU = new DatabaseUser(getContext());
 
-        String nameUser = myDbU.nameRecover(idUser);
+        String nameUser = myDbU.nameRecover(idUser,0);
         Log.d("Name User is ",nameUser);
         TextView nameWelcome = v.findViewById(R.id.nameUser);
         nameWelcome.setText(nameUser);

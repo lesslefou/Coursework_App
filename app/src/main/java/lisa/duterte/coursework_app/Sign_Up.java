@@ -85,9 +85,12 @@ public class Sign_Up extends AppCompatActivity {
                 //Different reactions for the submitButton
                 if (validPassword && validEmail && validInfo) {
                     addUser();
-                    Intent i = new Intent(Sign_Up.this, Welcome.class);
-                    //i.putExtra("idUser",number);
-                    startActivity(i);
+                    int number = checkUser(emailText,pwdText);
+                    if (number != -1) {
+                        Intent i = new Intent(Sign_Up.this, Welcome.class);
+                        i.putExtra("idUser",number);
+                        startActivity(i);
+                    }
                     notificationDialog();
                 }
                 if (validInfo) {
@@ -102,8 +105,7 @@ public class Sign_Up extends AppCompatActivity {
                         Toast.makeText(getBaseContext(), R.string.bothWrong, Toast.LENGTH_SHORT).show();
                         passwordField.getText().clear();
                     }
-                } else
-                {
+                } else {
                     Toast.makeText(getBaseContext(), R.string.notInfo, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -129,6 +131,13 @@ public class Sign_Up extends AppCompatActivity {
             Toast.makeText(getBaseContext(), R.string.welcome, Toast.LENGTH_SHORT).show();
         else
             Toast.makeText(Sign_Up.this,"User not Inserted",Toast.LENGTH_LONG).show();
+    }
+
+    private int checkUser(String emailText, String passwordText) {
+
+        int isFound = myDbU.checkIfUserExist(emailText,passwordText);
+
+        return isFound;
     }
 
     private void notificationDialog() {

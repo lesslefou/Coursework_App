@@ -63,13 +63,15 @@ public class Add_Contact extends AppCompatActivity {
                             Toast.makeText(Add_Contact.this, "Contact Inserted", Toast.LENGTH_SHORT).show();
                         else
                             Toast.makeText(Add_Contact.this, "Pseudo already added", Toast.LENGTH_SHORT).show();
+
+                        editPseudo.getText().clear();
                     }
                     else {
                         Toast.makeText(Add_Contact.this, "Pseudo not Found", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else{
-                    Toast.makeText(Add_Contact.this,"You need to fill all the information",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Add_Contact.this,"You need to enter a pseudo",Toast.LENGTH_SHORT).show();
                 }
 
             }
