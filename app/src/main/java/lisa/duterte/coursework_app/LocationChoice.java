@@ -2,6 +2,7 @@ package lisa.duterte.coursework_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,7 +16,8 @@ public class LocationChoice extends AppCompatActivity {
     DataBaseActivity myDbA;
     EditText addressField;
     String address;
-    Integer activity_number;
+    Integer activity_number,update=0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +26,14 @@ public class LocationChoice extends AppCompatActivity {
         myDbA = new DataBaseActivity(this);
         activity_number = Objects.requireNonNull(getIntent().getExtras()).getInt("ACTNUMBER", -1);
         Log.d("LocationChoice", "activity_number récupéré" + activity_number);
+        update = Objects.requireNonNull(getIntent().getExtras()).getInt("UPDATE", -1);
+        Log.d("LocationChoice", "update récupéré" + update);
 
 
+        if (update == 1){
+            addressField = findViewById(R.id.adressField);
+            addressField.setText(myDbA.locationActivityRecover(activity_number));
+        }
 
         Button validate_btn = findViewById(R.id.validateBtn);
         validate_btn.setOnClickListener(new View.OnClickListener() {
@@ -40,7 +48,14 @@ public class LocationChoice extends AppCompatActivity {
                     Toast.makeText(LocationChoice.this,"Address not added",Toast.LENGTH_SHORT).show();
                 }
 
-                finish();
+                if (update == 0){
+                    finish();
+                }
+                else {
+                    Intent i = new Intent(LocationChoice.this,ViewActivity.class);
+                    i.putExtra("ACTNUMBER",activity_number);
+                    startActivity(i);
+                }
             }
         });
     }

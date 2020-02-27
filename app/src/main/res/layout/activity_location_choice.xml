@@ -23,6 +23,7 @@
         android:id="@+id/relative"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@+id/title"
         android:layout_marginTop="30dp"
         app:layout_constraintStart_toStartOf="parent">
@@ -39,8 +40,9 @@
             android:id="@+id/adressField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/adressText"
-            android:layout_toEndOf="@+id/adressText"/>
+            android:layout_toEndOf="@+id/adressText"
+            android:layout_alignTop="@id/adressText"
+            android:inputType="text"/>
     </RelativeLayout>
 
     <Button

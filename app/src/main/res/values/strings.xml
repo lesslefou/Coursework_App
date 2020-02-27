@@ -26,7 +26,7 @@
     <string name="createAct">Create a new Activity</string>
     <string name="dialogue_message_activity">Do you want to do?</string>
     <string name="delete_answer">Delete</string>
-    <string name="update_answer">Update</string>
+    <string name="see_answer">Update</string>
 
     <string name="contact">Contacts</string>
     <string name="myContacts"><u>My Contacts</u></string>
@@ -72,6 +72,11 @@
     <string name="logout">Logout</string>
     <string name="unsubscribe">Unsubscribe</string>
     <string name="dialogue_message_unsubscribe">Are you sure that you want to quite our app?</string>
+
+    <string name="foodTitle"><u>Foods :</u></string>
+    <string name="drinkTitle"><u>Drinks :</u></string>
+    <string name="friendTitle"><u>Friends :</u></string>
+    <string name="locationTitle"><u>Location :</u></string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

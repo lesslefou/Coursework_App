@@ -1,14 +1,19 @@
 package lisa.duterte.coursework_app;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuItemCompat;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,7 +28,7 @@ import java.util.Objects;
 
 public class ContactChoice extends AppCompatActivity {
 
-    Integer idUser, activity_number;
+    Integer idUser, activity_number,update=0;
     ArrayList<String> listContactFound = new ArrayList<>();
     DataBaseContact myDbC;
     DataBaseContactActivty myDbCA;
@@ -39,6 +44,8 @@ public class ContactChoice extends AppCompatActivity {
         Log.d("ContactChoice", "id récupéré" + idUser);
         activity_number = Objects.requireNonNull(getIntent().getExtras()).getInt("ACTNUMBER", -1);
         Log.d("ContactChoice", "activity_number récupéré" + activity_number);
+        update = Objects.requireNonNull(getIntent().getExtras()).getInt("UPDATE", -1);
+        Log.d("ContactChoice", "update récupéré" + update);
 
         myDbC = new DataBaseContact(this);
         myDbCA = new DataBaseContactActivty(this);
@@ -55,7 +62,15 @@ public class ContactChoice extends AppCompatActivity {
         validateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                if (update == 0){
+                    finish();
+                }
+                else {
+                    Intent i = new Intent(ContactChoice.this,ViewActivity.class);
+                    i.putExtra("ACTNUMBER",activity_number);
+                    startActivity(i);
+
+                }
             }
         });
 
@@ -63,6 +78,14 @@ public class ContactChoice extends AppCompatActivity {
         contactFoundView = findViewById(R.id.contactFoundView);
         listContactFound = new ArrayList<>();
         viewContactAdded();
+
+        contactFoundView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String recup_pseudo = listContactFound.get(position);
+                showInformationSavedDialog(recup_pseudo);
+            }
+        });
     }
 
     private void checkContact(int user) {
@@ -92,7 +115,7 @@ public class ContactChoice extends AppCompatActivity {
     //Impossible d'afficher les contacts au fur et à mesure
     private void viewContactAdded() {
         Cursor cursor = myDbCA.viewContactActivity(activity_number);
-        Log.d("Contact Choice","numver = "+activity_number);
+        Log.d("Contact Choice","number = "+activity_number);
 
         if (cursor.getCount() == 0) {
             Toast.makeText(ContactChoice.this,"No Data to show", Toast.LENGTH_SHORT).show();
@@ -104,6 +127,32 @@ public class ContactChoice extends AppCompatActivity {
                 contactFoundView.setAdapter(listAdapter);
             }
         }
+    }
+
+    protected void showInformationSavedDialog(final String pseudo) {
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(ContactChoice.this, android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(ContactChoice.this);
+        }
+        builder.setMessage(R.string.dialogue_message);
+        builder.setCancelable(false);
+        builder.setNegativeButton(R.string.no_answer, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.setPositiveButton(R.string.yes_answer, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                myDbCA.deleteData(pseudo);
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
 }

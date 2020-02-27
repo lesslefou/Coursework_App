@@ -30,13 +30,14 @@ public class ActivityFragment extends Fragment {
     private DataBaseActivity myDbA;
     private ArrayList<String> listActivity;
     private ListView activityView;
+    private Integer activity_number,idUser;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         // Inflate the layout for this fragment
          View v = inflater.inflate(R.layout.fragment_activity, container, false);
         Bundle b = getArguments();
-        final int idUser = Objects.requireNonNull(b).getInt("idUser");
+        idUser = Objects.requireNonNull(b).getInt("idUser");
         Log.d("ActivityFragment", "id récupéré" + idUser);
 
         Button create_Btn = v.findViewById(R.id.createBtn);
@@ -58,6 +59,7 @@ public class ActivityFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String recup_name = listActivity.get(position);
+                activity_number = myDbA.numberActivityRecover(recup_name);
                 showInformationSavedDialog(recup_name);
 
             }
@@ -75,7 +77,7 @@ public class ActivityFragment extends Fragment {
         else {
             while (cursor.moveToNext()){
                 listActivity.add(cursor.getString(1));
-                ArrayAdapter listAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, listActivity);
+                ArrayAdapter listAdapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), android.R.layout.simple_list_item_1, listActivity);
                 activityView.setAdapter(listAdapter);
             }
         }
@@ -84,9 +86,9 @@ public class ActivityFragment extends Fragment {
     protected void showInformationSavedDialog(final String name) {
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
+            builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()), android.R.style.Theme_Material_Dialog_Alert);
         } else {
-            builder = new AlertDialog.Builder(getContext());
+            builder = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
         }
         builder.setMessage(R.string.dialogue_message_activity);
         builder.setCancelable(false);
@@ -97,10 +99,13 @@ public class ActivityFragment extends Fragment {
                 dialog.cancel();
             }
         });
-        builder.setPositiveButton(R.string.update_answer, new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.see_answer, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //Faire la fonction
+                Intent i = new Intent(getContext(),ViewActivity.class);
+                i.putExtra("ACTNUMBER",activity_number);
+                i.putExtra("IDUSER",idUser);
+                startActivity(i);
                 dialog.cancel();
             }
         });

@@ -26,8 +26,18 @@
         android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/validateBtn"
         app:layout_constraintTop_toBottomOf="@id/nameActivity"/>
+
+    <Button
+        android:id="@+id/validateBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/validateBtn"
+        app:layout_constraintTop_toBottomOf="@id/recycler_view_create"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 
 

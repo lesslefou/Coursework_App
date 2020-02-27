@@ -24,7 +24,7 @@ public class DataBaseActivity extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase dbA) {
-        dbA.execSQL("create table " + ACTIVITY_NAME + "(NUMBER INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, USER INTEGER, ADDRESS INTEGER)");
+        dbA.execSQL("create table " + ACTIVITY_NAME + "(NUMBER INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, USER INTEGER, ADDRESS TEXT)");
     }
 
     @Override
@@ -66,33 +66,78 @@ public class DataBaseActivity extends SQLiteOpenHelper {
         return c;
     }
 
-    public int numberActivityRecover(String nameActivity, Integer idUser) {
+    public int numberActivityRecover(String nameActivity) {
         SQLiteDatabase dbA = this.getReadableDatabase();
+        Cursor c = dbA.rawQuery("SELECT * FROM activity_table", null);
 
-        int number = -1, userSave = -1;
-        String nameSave = "";
-        Cursor c = dbA.rawQuery("SELECT * FROM activity_table WHERE USER = '" + idUser + "'", null);
-
-        int userIndex = c.getColumnIndex("USER");
-        int nameIndex = c.getColumnIndex("NAME");
         int numberIndex = c.getColumnIndex("NUMBER");
+        int nameIndex = c.getColumnIndex("NAME");
+
         c.moveToFirst();
         if (c.moveToFirst()) {
-            while (c.moveToNext()) {
-                userSave = c.getInt(userIndex);
-                nameSave = c.getString(nameIndex);
-                number = c.getInt(numberIndex);
-                if (nameSave.equals(nameActivity)) {
-                    if (userSave == idUser) {
-                        c.close();
-                        return number;
-                    }
+            do {
+                String nameRecup = c.getString(nameIndex);
+                if (nameRecup.equals(nameActivity)){
+                    return c.getInt(numberIndex);
                 }
-            }
-            return -1;
+            } while (c.moveToNext());
+            
         } else {
             c.close();
             return -1;
         }
+        return -1;
+    }
+
+    public String locationActivityRecover(Integer number_activity) {
+        SQLiteDatabase dbA = this.getReadableDatabase();
+        Cursor c = dbA.rawQuery("SELECT * FROM activity_table WHERE number = '" + number_activity + "'", null);
+
+        int locationIndex = c.getColumnIndex("ADDRESS");
+
+        c.moveToFirst();
+        if (c.moveToFirst()) {
+            return c.getString(locationIndex);
+        } else {
+            return "";
+        }
+    }
+
+    public boolean checkName(String name){
+        SQLiteDatabase dbA = this.getReadableDatabase();
+
+        Cursor c = dbA.rawQuery("SELECT * FROM activity_table ", null);
+        String nameTest;
+        int nameIndex = c.getColumnIndex("NAME");
+        c.moveToFirst();
+        if (c.moveToFirst()) {
+            do {
+                nameTest = c.getString(nameIndex);
+                if (name.equals(nameTest)) {
+                    return true;
+                }
+            } while (c.moveToNext());
+        }
+        return false;
+    }
+
+    String informationRecover(int activity_number, int choix) {
+        SQLiteDatabase dbA = this.getReadableDatabase();
+
+        Cursor c = dbA.rawQuery("SELECT * FROM activity_table WHERE number = '"+activity_number+"'", null);
+        int nameIndex = c.getColumnIndex("NAME");
+        int addressIndex = c.getColumnIndex("ADDRESS");
+        c.moveToFirst();
+        if (c.moveToFirst()) {
+            switch (choix) {
+                case 0:
+                    return c.getString(nameIndex);
+                case 1:
+                    return c.getString(addressIndex);
+            }
+        }
+        else
+            return "error";
+        return "error";
     }
 }
